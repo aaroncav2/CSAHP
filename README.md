@@ -5,23 +5,23 @@ Q: So what makes HDM not AHP?
 A: Constant sum scaling, adding an 11th criteria, unique measurement of consistency, and desirability calculations.  
 ***
 HDM terminology compared to AHP  
-Levels - HDM, AHP  
-Level 1 - Mission, Focus  
-Level 2 - Perspective, Actors  
-Level 3 - Criterion, Objectives  
-Level 4 - Alternative, Scenario  
+Levels, HDM, AHP  
+Level 1, Mission, Focus  
+Level 2, Perspective, Actors  
+Level 3, Criterion, Objectives  
+Level 4, Alternative, Scenario  
 ***
 Constant sum scale in Excel  
-1	0  
-2	0.11111  
-3	0.25  
-4	0.42857  
-5	0.66667  
-6	1  
-7	1.5  
-8	2.33333  
-9	4  
-10	9  
+1,	0  
+2,	0.11111  
+3,	0.25  
+4,	0.42857  
+5,	0.66667  
+6,	1  
+7,	1.5  
+8,	2.33333  
+9,	4  
+10,	9  
 ***
 What's new in the advanced version (aka HDMA) over the PSU tool?  
 Density - a customizable baseline measurement to make account of outliers  
