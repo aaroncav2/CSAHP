@@ -29,3 +29,4 @@ Focus charts - deep dive reference when debating one individual implementation o
 Skip level comparisons (alternatives to perspectives)  
 ***
 Note: that number of variables 4,5,6,7, and 11 have been put into the HDMA spreadsheet and tested. If you want to use variables matrices of 3, 8, 9, or 10 you will need to create that in the HDMA tool spreadsheet (work backwards from 11 and make space in the spreadsheet).  
+Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the HDM model in order to include cost/aquisition decisions and management personnel into a final report.
