@@ -2,7 +2,7 @@
 This is a student PhD project at Portland State University to assess Cybersecurity Readiness for the Energy Industry using expert opinions in pairwise comparisons to enable validation of experts consistency through Analytical Hierarchy Process (AHP) eigenvectors. This tool helps organizations evaluate their need to enhance cyber security controls. The tool is most suited for situtations where an outage is taking place within the organization.  
 ---
 Q: So what makes HDM not AHP?  
-A: Constant sum scaling, adding an 11th criteria, unique measurement of consistency, and desirability calculations.  
+A: Constant sum scaling, unique measurement of consistency, and desirability calculations.  
 ***
 HDM terminology compared to AHP  
 Levels, HDM, AHP  
