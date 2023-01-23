@@ -20,7 +20,7 @@ Constant sum scale in Excel
 9,	4  
 10,	9  
 ***
-What's new in this implementation?  
+What's new in this iteration?  
 Step 1:  
 Density - a customizable baseline measurement to make account of outliers  
 Focus charts - deep dive reference when debating one individual implementation over another  
