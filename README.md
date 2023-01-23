@@ -1,10 +1,7 @@
-# Hierarchical Decision Model Advanced (HDMA)
-This is a student PhD project at Portland State University to assess Cybersecurity Readiness for the Energy Industry using expert opinions in pairwise comparisons to enable validation of experts consistency through Analytical Hierarchy Process (AHP) eigenvectors. This tool helps organizations evaluate their need to enhance cyber security controls. The tool is most suited for situtations where an outage is taking place within the organization.  
+# Constant Sum AHP
+A constant sum AHP inspired by PhD level dissertation work. This is a student PhD project to assess Cybersecurity Readiness for the Energy Industry using expert opinions in pairwise comparisons to enable validation of experts consistency through Analytical Hierarchy Process (AHP). This tool helps organizations evaluate their need to enhance cyber security controls. The tool is most suited for situtations where an outage is taking place within the organization.  
 ---
-Q: So what makes HDM not AHP?  
-A: Constant sum scaling, unique measurement of consistency, and desirability calculations.  
-***
-HDM terminology compared to AHP  
+Huerarchical Decision Model (HDM) terminology used in this project compared to AHP  
 Levels, HDM, AHP  
 Level 1, Mission, Focus  
 Level 2, Perspective, Actors  
@@ -23,7 +20,7 @@ Constant sum scale in Excel
 9,	4  
 10,	9  
 ***
-What's new in the advanced version (aka HDMA) over the PSU tool?  
+What's new in this implementation?
 Step 1:  
 Density - a customizable baseline measurement to make account of outliers  
 Focus charts - deep dive reference when debating one individual implementation over another  
@@ -32,6 +29,6 @@ Step 2:
 Desirability Global Weights based on Perspectives weighting (rather than local weight mulitplication) from step 1  
 New Sensitivity calculation
 ***
-Note: That number of variables 4,5,6,7, and 11 have been put into the HDMA spreadsheet and tested. If you want to use variables matrices of 3, 8, 9, or 10 you will need to create that in the HDMA tool spreadsheet (work backwards from 11 and make space in the spreadsheet).  
+Note: That number of variables 4,5,6,7, and 11 have been put into the spreadsheet and tested. If you want to use variables matrices of 3, 8, 9, or 10 you will need to create that in the tool spreadsheet (work backwards from 11 and make space in the spreadsheet).  
 ***
-Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the HDM model in order to include cost/aquisition decisions and management personnel into a final report.
+Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
