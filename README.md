@@ -47,6 +47,6 @@ Constant sum scale in Excel
 9,	4   = 1 data point  
 10,	9   = 4 data points  
 Larger because effectively a 1 data point can be considered a minus 1 while the 4 data point can be considered a plus 2. If the 2 data points are all equal to one then the effective range is now 12 instead of 1 to 10.  
-![Scale](scale.jpg)
+![Scale](scale.gif)
 ***
 Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
