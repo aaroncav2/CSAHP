@@ -19,7 +19,7 @@ New Sensitivity calculation
 ***
 Note: The number of variables 4,5,6,7, and 11 have been put into the spreadsheet and tested. If you want to use variables matrices of 3, 8, 9, or 10 you will need to create that in the tool spreadsheet (work backwards from 11 and make space in the spreadsheet).  
 ***
-Note: The reciprical scores on the grid tab are plus oned so that the total range is effectively larger (yet the decision maker only gets a 1 to 10 scale to respond to). This tweak creates space in range which solves the AHP problem of mis-ranking/re-ranking the average vis-a-vis a raw sum (which would give a decision maker the wrong decision to choose). That is the grid is "expanded" to provide separation of scores thereby never changing rank order. Thus this CSAHP model raw sum will always equal the the ranking order.  
+Note: The reciprical scores on the grid tab are plus oned so that the total range is effectively larger* (yet the decision maker only gets a 1 to 10 scale to respond to). This tweak creates space in range which solves the AHP problem of mis-ranking/re-ranking the average vis-a-vis a raw sum (which would give a decision maker the wrong decision to choose). That is the grid is "expanded" to provide separation of scores thereby never changing rank order. Thus this CSAHP model raw sum will always equal the the ranking order.  
 Example:  
 If a cell score that is being inputed (there in only one value per pair because the reciprocal is derived), then the derived reciprocal is calculated based on the follwowing grid:  
 Constant Sum Value: Grid Input Score, Reciprocal Derived  
@@ -45,5 +45,6 @@ Constant sum scale in Excel
 8,	2.33333   = 2 data points  
 9,	4   = 1 data point  
 10,	9   = 4 data points  
+Larger becaue effectively a 1 data point can be considered a minus 1 while the 4 data point can be considered a plus 2. If the 2 data points are all equal to one then the effective range is now 12 instead of 1 to 10.
 ***
 Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
