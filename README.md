@@ -33,6 +33,7 @@ Constant Sum Value: Grid Input Score, Reciprocal Derived
 8: 2.33, .42  
 9: 9, .11  
 10: 9, 0  
+The reasons for these scores is because of the 10-n/n calculation for the reciprocal.  
 Reviewing this grid setup shows that there are 20 possible grid data points from the 10 point scale:  
 Constant sum scale in Excel  
 1,	0   = 2 data points  
