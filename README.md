@@ -31,6 +31,6 @@ New Sensitivity calculation
 ***
 Note: The number of variables 4,5,6,7, and 11 have been put into the spreadsheet and tested. If you want to use variables matrices of 3, 8, 9, or 10 you will need to create that in the tool spreadsheet (work backwards from 11 and make space in the spreadsheet).  
 ***
-Note: The recipricol scores on the grid tab are plus oned so that the total range is 11. This tweak creates space in the 1 to 10 range) which solves the AHP problem of misranking the average vis-a-vis a raw sum (which would give a decision maker the wrong decision to choose). As a result in this CSAHP model the raw sum will always equals the the averaged normalized matrix ranking order.
+Note: The reciprical scores on the grid tab are plus oned so that the total range is effectively 11. This tweak creates space in the 1 to 10 range which solves the AHP problem of mis-ranking/re-ranking the average vis-a-vis a raw sum (which would give a decision maker the wrong decision to choose). Thus this CSAHP model raw sum will always equal the the ranking order.
 ***
 Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
