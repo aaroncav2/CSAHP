@@ -1,5 +1,6 @@
-# Constant Sum Analytical Hierarchy Process (AHP)
-A constant sum AHP inspired by PhD level dissertation work. This is an iteration of student PhD project to assess Cybersecurity Readiness for the Energy Industry using expert opinions in pairwise comparisons to enable validation of experts consistency through hybrid techniques from both Hierarchical Decision Model (HDM) and AHP type calculations. This tool helps organizations evaluate their need to enhance cyber security controls. The tool is most suited for situtations where an outage is taking place within the organization.  
+# Constant Sum (1 to 10) Analytical Hierarchy Process (AHP)
+A constant sum AHP inspired by PhD level dissertation work. This is an iteration of student PhD project to assess Cybersecurity Readiness for the Energy Industry using expert opinions in pairwise comparisons to enable validation of experts consistency through hybrid techniques from both Hierarchical Decision Model (HDM) and AHP type calculations. This tool helps organizations evaluate their need to enhance cyber security controls. The tool is most suited for situtations where an outage is taking place within the organization. Note the 1 to 10 scale can create some misranking because it is a "proxy model" for the 1 to 17 AHP scale. See the Excel spreadsheet that is shown in this project files.  
+![AHPscale](AHPscale.gif) 
 ---
 HDM terminology used in this project compared to AHP  
 Levels, HDM, AHP  
