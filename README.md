@@ -62,4 +62,4 @@ The factorials are roughly the number of rows needed to do an HDM calculation.
 9! - 9 × 8 × 7 × 6 × 5 × 4 × 3 × 2 × 1 - 362,880  
 10! - 10 × 9 ×8 × 7 × 6 × 5 ×4 × 3 × 2 × 1 - 3,628,800  
 Thus the limit for using Excel for HDM calculations is 9 factorials.  
-Excel's maximum row limit as o 2023 is 1,048,576 and columns are limited to 16,384.  
+Excel's maximum row limit as of year 2023 is 1,048,576, and columns are limited to 16,384.  
