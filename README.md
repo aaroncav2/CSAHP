@@ -52,3 +52,14 @@ Larger because effectively a 1 data point can be considered a minus 1 while the 
 Note: A constant sum scale of 1 to 100 also provides enough room in the matrix to overcome the misranking problem but some survey tools (like Google Forms currently) will not allow for a 1 to 100 scale.
 ***
 Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
+***
+The factorials are roughly the number of rows needed to do an HDM calculation.  
+4! - 4 × 3 × 2 × 1 - 24  
+5! - 5 × 4 × 3 × 2 × 1 - 120  
+6! - 6 × 5 × 4 × 3 × 2 × 1 - 720  
+7! - 7 × 6 × 5 × 4 × 3 × 2 × 1 - 5,040  
+8! - 8 × 7 × 6 × 5 × 4 × 3 × 2 × 1 - 40,320  
+9! - 9 × 8 × 7 × 6 × 5 × 4 × 3 × 2 × 1 - 362,880  
+10! - 10 × 9 ×8 × 7 × 6 × 5 ×4 × 3 × 2 × 1 - 3,628,800  
+Thus the limit for using Excel for HDM calculations is 9 factorials.  
+Excel's maximum row limit as o 2023 is 1,048,576 and columns are limited to 16,384.  
