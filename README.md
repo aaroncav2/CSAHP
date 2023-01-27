@@ -49,7 +49,7 @@ Constant sum scale in Excel
 10,	9   = 4 data points  
 Larger because effectively a 1 data point can be considered a minus 1 while the 4 data point can be considered a plus 2. If the 2 data points are all equal to one then the effective range is now 12 instead of 1 to 10.  
 ![Scale](scale.gif)  
-Note: A constant sum scale of 1 to 100 also provides enough room in the matrix to overcome the misranking problem but some survey tools (like Google Forms currently) will not allow for a 1 to 100 scale.
+Note: A constant sum scale of 1 to 100 also provides enough room in the matrix to overcome the misranking problem but some survey tools (like Google Forms currently) will not allow for a 1 to 100 scale. The survey taker shall ignore the 1 to 10 numbers (if shown as in Google Forms) and instead treat the linear scale checkboxes as a comparison relative to how much they would pick one variable over another. 
 ***
 Note: The Alternatives (Level 4) are an optional component (and an additional spreadsheet for processing output of survey) of the model in order to include cost/aquisition decisions and management personnel into a final report.
 ***
