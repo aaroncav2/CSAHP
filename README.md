@@ -14,6 +14,7 @@ Step 1:
 Density - a customizable baseline measurement to make account of outliers  
 Focus charts - deep dive reference when debating one individual implementation over another  
 Skip level comparisons (Alternatives "Level 4" to Perspectives "Level 2")  
+A standard deviation matrix based inconsistency score. I suggest that you accept either CSAHP consistency score calculated in the spreadsheet. If either one falls below .10 then you should accept the users ranking as valid.  
 Step 2:  
 Desirability Global Weights based on Perspectives weighting (rather than local weight mulitplication) from step 1  
 New Sensitivity calculation
