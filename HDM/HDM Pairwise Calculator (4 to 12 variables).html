@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>HDM Pairwise Calculator</title><style>
+:root{--bg:#fff;--fg:#1a1a1a;--bd:#333;--g:#cde8bd;--m:#666;--hd:#fffd99;--st:#ddf6fb;--st2:#d9e1f2;--gr:#2ecc40;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#16181c;--fg:#e8e8e8;--bd:#888;--g:#2f5a2a;--m:#999;--hd:#55531c;--st:#1d4350;--st2:#27324a;color-scheme:dark}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:16px;font:14px system-ui,sans-serif;background:var(--bg);color:var(--fg);max-width:1400px}[hidden]{display:none!important}
+h1{font-size:20px;color:#2a5f9e}h2{font-size:16px;color:#2a5f9e;margin:22px 0 8px}h3{font-size:14px;margin:14px 0 4px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+label{display:flex;flex-direction:column;font-size:12px;color:var(--m)}label.ck{flex-direction:row;gap:6px;align-items:center;color:var(--fg);font-size:14px}input,select,button{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--bd);padding:4px 6px}button{cursor:pointer;padding:6px 12px}
+.vars{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin:8px 0}.vars div{display:flex;gap:6px;align-items:center}.vars b{width:16px}.vars input{flex:1;min-width:0}
+.pairs{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;overflow-x:auto}.col{display:flex;flex-direction:column;gap:6px}
+.pr{display:flex;border:1.5px solid var(--bd)}.pr span,.pr input{width:34px;text-align:center;padding:3px 0;border:0;border-right:1px solid var(--bd);box-sizing:border-box}.pr span:last-child{border:0}.pr input{background:var(--g);-moz-appearance:textfield}
+pre{background:#0d1117;color:#d6e2f0;padding:12px;overflow-x:auto;margin:4px 0}.t{border-collapse:collapse;overflow-x:auto;display:block}.t td,.t th{border:1px solid var(--bd);padding:3px 8px;text-align:right;font-weight:400;vertical-align:top}
+.t th{background:var(--hd);text-align:center;max-width:140px}.t .s td{background:var(--st)}.t .s td:first-child{text-align:left;font-weight:700}.mx{background:var(--gr);color:#000}.x{border:1px solid var(--bd);padding:1px 8px;color:#d33;background:var(--bg);cursor:pointer}small{color:var(--m)}
+.gt th{background:#4472c4;color:#fff;font-weight:700;text-align:center}.gt tr:nth-child(even) td{background:var(--st2)}.gt td:nth-child(3){text-align:left}.gt tr.tot td{font-weight:700;background:var(--bg)}select.err{color:#d33;max-width:100%}
+.cu tr:not(.s) td{background:var(--hd)}#err{color:#d33;margin:6px 0;font-weight:600}
+.mis{text-align:center;font-size:24px;color:#2a5f9e;margin:8px}.dcols{display:flex;gap:12px;overflow-x:auto;align-items:flex-start;padding-bottom:8px}.dc{flex:0 0 150px;display:flex;flex-direction:column;gap:2px}.chip{width:38px;text-align:center;background:#4472c4;color:#fff;padding:2px}.chip.hi{background:#92d050;color:#000}.chip.lo{background:#f00;color:#fff}.per{background:#ed7d31;color:#fff;text-align:center;padding:8px 4px;margin-bottom:2px}.cri{background:#4472c4;color:#fff;text-align:center;padding:8px 4px;margin-bottom:8px;min-height:40px}
+.pr{align-items:stretch}.pr span.l{width:auto;min-width:34px;max-width:170px;text-align:left;padding:3px 6px;font-size:12px;white-space:normal;word-break:break-word}
+</style></head><body><h1>HDM Pairwise Comparison Calculator</h1>
+<div class="row"><label class="ck"><input type="checkbox" id="cat">Categorical information (check to enter the perspectives; uncheck to enter criteria for one perspective)</label></div>
+<div class="row" style="margin-top:8px"><label>Mission<input id="mt" size="44" placeholder="Mission, e.g. Cybersecurity Readiness Decision"></label></div>
+<div class="row" style="margin-top:10px"><button id="go">Calculate</button><label>Respondent ID<input id="rid" size="8"></label><button id="add" disabled>Add to cumulative table</button></div>
+<div id="err"></div><div id="cfg"></div><h2>Output</h2><div id="prog"></div><div id="out"><pre id="o">Press Calculate.</pre></div>
+<h2>Cumulative tables</h2><div class="row"><button id="clr">Clear this table</button><small id="msg"></small></div><div id="cum"></div>
+<h2>Global weights</h2><div id="glob"></div><h2>Hierarchy chart</h2><div id="dia"></div>
+<small>Disagreement = average of the respondents' Inconsistency values. Global weight = perspective value x local weight, using the Mean rows of the cumulative tables.</small>
+<script>
+const RSV={"p":[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.2,0.21,0.22,0.23,0.24,0.25,0.26,0.27,0.28,0.29,0.3,0.31,0.32,0.33,0.34,0.35,0.36,0.37,0.38,0.39,0.4,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,0.5],"v":{"4":[0.0188,0.0418,0.0596,0.0748,0.0884,0.1008,0.1124,0.1233,0.1337,0.1437,0.1532,0.1625,0.1714,0.1801,0.1886,0.1969,0.205,0.2129,0.2207,0.2283,0.2359,0.2433,0.2506,0.2578,0.2648,0.2719,0.2788,0.2856,0.2924,0.2991,0.3057,0.3123,0.3188,0.3253,0.3317,0.338,0.3443,0.3506,0.3568,0.363,0.3691,0.3752,0.3813,0.3873,0.3933,0.3993,0.4052,0.4112,0.417,0.4229],"5":[0.1495,0.1934,0.223,0.246,0.2651,0.2816,0.2963,0.3095,0.3215,0.3327,0.343,0.3528,0.362,0.3706,0.3789,0.3868,0.3944,0.4016,0.4086,0.4154,0.4219,0.4282,0.4343,0.4403,0.4461,0.4517,0.4572,0.4626,0.4679,0.473,0.478,0.483,0.4878,0.4926,0.4972,0.5018,0.5063,0.5108,0.5152,0.5195,0.5237,0.5279,0.5321,0.5362,0.5402,0.5443,0.5482,0.5521,0.556,0.5599],"6":[0.3012,0.3462,0.3745,0.3955,0.4124,0.4266,0.439,0.4499,0.4597,0.4686,0.4769,0.4845,0.4916,0.4983,0.5047,0.5106,0.5163,0.5218,0.527,0.532,0.5368,0.5414,0.5459,0.5502,0.5544,0.5585,0.5625,0.5664,0.5701,0.5738,0.5774,0.5809,0.5843,0.5877,0.591,0.5942,0.5974,0.6006,0.6037,0.6067,0.6097,0.6126,0.6155,0.6184,0.6213,0.6241,0.6268,0.6296,0.6323,0.635],"7":[0.4249,0.462,0.4847,0.5012,0.5143,0.5253,0.5347,0.543,0.5505,0.5572,0.5634,0.5691,0.5745,0.5795,0.5842,0.5887,0.5929,0.597,0.6009,0.6046,0.6081,0.6116,0.6149,0.6181,0.6212,0.6243,0.6272,0.6301,0.6329,0.6356,0.6383,0.6409,0.6434,0.646,0.6484,0.6508,0.6532,0.6555,0.6579,0.6601,0.6624,0.6646,0.6668,0.6689,0.671,0.6732,0.6752,0.6773,0.6794,0.6814],"8":[0.51,0.54,0.5581,0.5713,0.5818,0.5904,0.5979,0.6045,0.6104,0.6157,0.6206,0.6252,0.6294,0.6334,0.6371,0.6406,0.644,0.6472,0.6502,0.6532,0.656,0.6587,0.6614,0.6639,0.6664,0.6688,0.6711,0.6734,0.6756,0.6778,0.6799,0.682,0.684,0.686,0.688,0.6899,0.6918,0.6937,0.6955,0.6973,0.6991,0.7009,0.7026,0.7044,0.7061,0.7078,0.7094,0.7111,0.7128,0.7144],"9":[0.5723,0.5961,0.6105,0.6211,0.6295,0.6365,0.6425,0.6478,0.6526,0.6569,0.6609,0.6646,0.6681,0.6713,0.6743,0.6772,0.68,0.6826,0.6851,0.6875,0.6899,0.6921,0.6943,0.6964,0.6984,0.7004,0.7023,0.7042,0.7061,0.7079,0.7096,0.7113,0.713,0.7147,0.7163,0.7179,0.7195,0.7211,0.7226,0.7241,0.7256,0.7271,0.7286,0.73,0.7314,0.7329,0.7343,0.7357,0.7371,0.7384],"10":[0.617,0.6371,0.6493,0.6582,0.6653,0.6712,0.6763,0.6807,0.6848,0.6884,0.6918,0.6949,0.6978,0.7005,0.7031,0.7056,0.7079,0.7101,0.7122,0.7143,0.7163,0.7182,0.72,0.7218,0.7235,0.7252,0.7268,0.7284,0.73,0.7315,0.733,0.7345,0.7359,0.7374,0.7388,0.7401,0.7415,0.7428,0.7441,0.7454,0.7467,0.748,0.7492,0.7505,0.7517,0.7529,0.7541,0.7553,0.7565,0.7577],"11":[0.6521,0.669,0.6793,0.6868,0.6928,0.6978,0.7022,0.706,0.7095,0.7126,0.7155,0.7182,0.7207,0.7231,0.7253,0.7274,0.7294,0.7313,0.7332,0.735,0.7367,0.7383,0.7399,0.7415,0.743,0.7445,0.7459,0.7473,0.7487,0.75,0.7513,0.7526,0.7538,0.7551,0.7563,0.7575,0.7587,0.7599,0.761,0.7621,0.7633,0.7644,0.7655,0.7666,0.7677,0.7687,0.7698,0.7709,0.7719,0.7729],"12":[0.68,0.6945,0.7034,0.71,0.7152,0.7196,0.7234,0.7267,0.7298,0.7325,0.735,0.7374,0.7396,0.7417,0.7436,0.7455,0.7473,0.749,0.7506,0.7521,0.7537,0.7551,0.7565,0.7579,0.7592,0.7605,0.7618,0.763,0.7643,0.7654,0.7666,0.7677,0.7689,0.77,0.771,0.7721,0.7732,0.7742,0.7752,0.7762,0.7772,0.7782,0.7792,0.7802,0.7812,0.7821,0.7831,0.784,0.7849,0.7859]}},$=id=>document.getElementById(id),Lt=i=>String.fromCharCode(65+i),f2=x=>x.toFixed(2),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mk=()=>({n:8,desc:{},vals:{},rows:[],last:null}),P=mk(),C=[];let cat=false,sel=0,busy=false;
+const cg=k=>C[k]||(C[k]=mk()),cur=()=>cat?P:cg(sel),pname=k=>P.desc[k]||'Perspective '+Lt(k),tr=x=>String(parseFloat(x.toFixed(2)));
+const title=()=>cat?'Perspectives (qualitative categories)':`Criteria for perspective ${Lt(sel)}: ${pname(sel)}`;
+const ERR='No perspective data has been entered yet. Please click the checkbox and fill out the initial perspective data before entering in criteria information.';
+function showOut(){const g=cur();$('o').textContent=g.last?g.last.text:'Press Calculate.';$('add').disabled=!g.last||g.last.added}
+function build(){const g=cur(),n=g.n,F=$('cfg');F.innerHTML='';$('err').textContent='';
+ if(!cat){const l=document.createElement('label');l.innerHTML='Perspective for these criteria<select></select>';const ps=l.firstElementChild.nextElementSibling||l.querySelector('select');F.appendChild(l);
+  if(!P.rows.length){ps.className='err';ps.add(new Option(ERR,'',true,true));showOut();return}
+  if(sel>=P.n)sel=0;for(let k=0;k<P.n;k++)ps.add(new Option(Lt(k)+': '+pname(k),k,0,k==sel));ps.onchange=()=>{sel=+ps.value;build()}}
+ const g2=cur(),s=document.createElement('section');
+ s.innerHTML=`<h2>${esc(title())}</h2><label style="width:170px">Number of ${cat?'perspectives':'criteria'}<select></select></label><small>Descriptions (text), then pairwise comparisons: type the left score (1 to 99); the right score is 100 minus it.</small><div class="vars"></div><div class="pairs"></div>`;
+ const sel2=s.querySelector('select'),V=s.querySelector('.vars'),Pn=s.querySelector('.pairs');
+ for(let k=4;k<=12;k++)sel2.add(new Option(k,k,0,k==g2.n));
+ sel2.onchange=()=>{g2.n=+sel2.value;g2.rows=[];g2.last=null;if(cat){C.length=0;$('msg').textContent='All criteria data cleared because the number of perspectives changed.'}else $('msg').textContent='';build();cum()};
+ const lab=i=>`<b>${Lt(i)}</b> ${esc(g2.desc[i]||'')}`;
+ for(let i=0;i<g2.n;i++){const d=document.createElement('div');d.innerHTML=`<b>${Lt(i)}</b><input placeholder="Description of ${Lt(i)}" value="${esc(g2.desc[i]||'')}">`;d.lastChild.oninput=e=>{g2.desc[i]=e.target.value;document.querySelectorAll('#cfg .l[data-i="'+i+'"]').forEach(x=>x.innerHTML=lab(i));cum()};V.appendChild(d)}
+ for(let k=1;k<g2.n;k++){const c=document.createElement('div');c.className='col';for(let a=0;a+k<g2.n;a++){const b=a+k,key=a+'-'+b,p=document.createElement('div');p.className='pr';
+  p.innerHTML=`<span class="l" data-i="${a}">${lab(a)}</span><input type="number" min="1" max="99" step="1" value="${g2.vals[key]||''}"><span class="l" data-i="${b}">${lab(b)}</span><span>${g2.vals[key]?100-g2.vals[key]:''}</span>`;
+  p.children[1].oninput=e=>{const v=e.target.value,ok=Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=99;g2.vals[key]=v;p.children[3].textContent=v===''?'':ok?100-v:'?';e.target.style.outline=v===''||ok?'':'2px solid #d33'};c.appendChild(p)}Pn.appendChild(c)}
+ F.appendChild(s);showOut()}
+$('cat').onchange=e=>{cat=e.target.checked;$('msg').textContent='';build()};
+function pmat(g){const n=g.n,R=[...Array(n)].map(()=>Array(n).fill(1)),raw=[...Array(n)].map(()=>Array(n).fill(0));
+ for(let a=0;a<n;a++)for(let b=a+1;b<n;b++){const x=+g.vals[a+'-'+b];raw[b][a]=x;raw[a][b]=100-x}
+ for(let i=0;i<n;i++)for(let j=0;j<n;j++)if(i!=j)R[i][j]=raw[i][j]/raw[j][i];
+ const P=new Float64Array(n*n);for(let k=0;k<n;k++)for(let j=0;j<n;j++){let s=0;for(let i=0;i<n;i++)s+=R[i][k]/R[i][j];P[k*n+j]=s/n}return P}
+const ORD=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+function task(n,P,pre,S1,S2){const used=new Uint8Array(n),s=new Int32Array(n),V=new Float64Array(n),t=pre.length;let cnt=0,Sp=0;
+ for(let j=0;j<t;j++){s[j]=pre[j];used[pre[j]]=1;V[j]=j?P[s[j]*n+s[j-1]]*V[j-1]:1;Sp+=V[j]}
+ const rem=[0,0,0];
+ function rec(d,Ss){if(d==n-3){let m=0;for(let a=0;a<n;a++)if(!used[a])rem[m++]=a;const pv=s[d-1],Vp=V[d-1];let A1=0,A2=0;
+   for(let o=0;o<6;o++){const x=rem[ORD[o][0]],y=rem[ORD[o][1]],z=rem[ORD[o][2]],v0=P[x*n+pv]*Vp,v1=P[y*n+x]*v0,v2=P[z*n+y]*v1,inv=1/(Ss+v0+v1+v2);A1+=inv;A2+=inv*inv;
+    let q=v0*inv;S1[x]+=q;S2[x]+=q*q;q=v1*inv;S1[y]+=q;S2[y]+=q*q;q=v2*inv;S1[z]+=q;S2[z]+=q*q}
+   for(let j=0;j<d;j++){const v=V[j];S1[s[j]]+=v*A1;S2[s[j]]+=v*v*A2}cnt+=6;return}
+  for(let a=0;a<n;a++)if(!used[a]){s[d]=a;V[d]=P[a*n+s[d-1]]*V[d-1];used[a]=1;rec(d+1,Ss+V[d]);used[a]=0}}
+ rec(t,Sp);return cnt}
+function bracket(v,n){const p=RSV.p,c=RSV.v[n];let lo=null,hi=null;for(let i=0;i<p.length;i++){if(c[i]<=v)lo=p[i];else if(hi===null)hi=p[i]}
+ return lo===null?`below the lowest tabulated percentile (${hi})`:hi===null?`at or above the highest tabulated percentile (${lo})`:`between table percentiles ${lo} and ${hi}`}
+async function calc(g,tag){const n=g.n,P=pmat(g),S1=new Float64Array(n),S2=new Float64Array(n),t=Math.min(2,n-3),tasks=[];
+ if(t==1)for(let a=0;a<n;a++)tasks.push([a]);else for(let a=0;a<n;a++)for(let b=0;b<n;b++)if(a!=b)tasks.push([a,b]);
+ let N=0,t0=performance.now();for(let i=0;i<tasks.length;i++){N+=task(n,P,tasks[i],S1,S2);$('prog').textContent=`${tag}: block ${i+1}/${tasks.length}, ${((performance.now()-t0)/1000).toFixed(0)}s`;await new Promise(r=>setTimeout(r,0))}
+ const avg=[],sd=[];for(let k=0;k<n;k++){avg.push(S1[k]/N);sd.push(Math.sqrt((S2[k]-S1[k]*S1[k]/N)/(N-1)))}
+ const hdm=sd.reduce((a,b)=>a+b)/n,rs=Math.sqrt(sd.reduce((a,b)=>a+b*b,0)),f=x=>x.toFixed(5);
+ let o=`${n} variables, ${N.toLocaleString('en-US')} permutations\nitem    average score    std dev\n`;for(let k=0;k<n;k++)o+=`  ${Lt(k)}        ${f(avg[k])}       ${f(sd[k])}\n`;
+ o+=`HDM Inconsistency (mean std dev):            ${f(hdm)}\nSquare root of summed variances (RSV lookup): ${f(rs)}\nRSV table (${n} variables): value falls ${bracket(rs,n)}`;
+ return{avg,hdm,text:o}}
+$('go').onclick=async()=>{if(busy||(!cat&&!P.rows.length))return;const g=cur();
+ const bad=[];for(let a=0;a<g.n;a++)for(let b=a+1;b<g.n;b++){const v=g.vals[a+'-'+b],x=Number(v);if(v===undefined||v===''||!Number.isInteger(x)||x<1||x>99)bad.push(Lt(a)+' vs '+Lt(b))}
+ if(bad.length){$('err').textContent='Error: each pairwise score must be a whole number from 1 to 99 so that each pair totals 100. Please correct: '+bad.join(', ')+'.';return}
+ busy=true;$('err').textContent='';$('go').disabled=true;g.last=await calc(g,title());$('prog').textContent='';showOut();busy=false;$('go').disabled=false};
+$('add').onclick=()=>{const g=cur(),id=$('rid').value.trim(),E=$('err');E.textContent='';if(!g.last||g.last.added)return;
+ if(!id){E.textContent='Enter a respondent ID before adding.';return}
+ if(g.rows.some(r=>String(r.id)===id)){E.textContent=`Error: respondent ID "${id}" has already been added to this table. Enter a new, unique respondent ID.`;return}
+ g.rows.push({id,avg:g.last.avg,inc:g.last.hdm});g.last.added=true;$('add').disabled=true;$('msg').textContent='';cum()};
+$('clr').onclick=()=>{cur().rows=[];cum()};
+function tbl(g,key){const rows=g.rows,n=g.n;
+ const st=a=>{const m=a.reduce((x,y)=>x+y)/a.length;return a.length>1?Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/(a.length-1)):NaN};
+ let h='<tr><th>ID</th>';for(let k=0;k<n;k++)h+=`<th><b>${Lt(k)}</b> ${esc(g.desc[k]||'')}</th>`;h+='<th>Inconsistency</th><th>Remove</th></tr>';if(!rows.length)return h+`<tr><td colspan="${n+3}" style="text-align:left">No respondents added yet.</td></tr>`;
+ rows.forEach((r,i)=>{h+=`<tr><td>${esc(r.id)}</td>`+r.avg.map(v=>`<td>${f2(v)}</td>`).join('')+`<td>${f2(r.inc)}</td><td><button class="x" data-g="${key}" data-i="${i}" title="Remove this respondent">Remove</button></td></tr>`});
+ const cols=[...Array(n)].map((_,k)=>rows.map(r=>r.avg[k])),mean=cols.map(c=>c.reduce((x,y)=>x+y)/c.length),mx=Math.max(...mean),sds=cols.map(st);
+ const line=(lab,a,b)=>`<tr class="s"><td>${lab}</td>`+a.map(v=>`<td${b&&v==mx?' class="mx"':''}>${isNaN(v)?'':b?'<b>'+f2(v)+'</b>':f2(v)}</td>`).join('')+'<td></td><td></td></tr>';
+ h+=line('Mean',mean,1)+line('Minimum',cols.map(c=>Math.min(...c)))+line('Maximum',cols.map(c=>Math.max(...c)))+line('Std. Deviation',sds);
+ const dis=rows.reduce((s,r)=>s+r.inc,0)/rows.length;return h+`<tr class="s"><td>Disagreement</td>${'<td></td>'.repeat(n)}<td>${isNaN(dis)?'':dis.toFixed(3)}</td><td></td></tr>`}
+function cum(){const C2=$('cum'),T=[[P,-1,'Perspectives']];for(let k=0;k<P.n;k++)if(P.rows.length)T.push([cg(k),k,`Criteria of ${Lt(k)}: ${pname(k)}`]);
+ C2.innerHTML=T.map(([g,k,t])=>`<h3>${esc(t)}</h3><table class="t cu">${tbl(g,k)}</table>`).join('');glob();dia()}
+$('cum').onclick=e=>{const b=e.target.closest('.x');if(b){(+b.dataset.g<0?P:C[+b.dataset.g]).rows.splice(+b.dataset.i,1);cum()}};
+function glob(){const E=$('glob');if(!P.rows.length){E.innerHTML='<small>Add perspective data first.</small>';return}
+ const mean=g=>[...Array(g.n)].map((_,k)=>g.rows.reduce((s,r)=>s+r.avg[k],0)/g.rows.length),pm=mean(P),B=[];
+ pm.forEach((pv,k)=>{const c=C[k];if(c&&c.rows.length)mean(c).forEach((lw,i)=>B.push({p:i?'':pname(k),v:i?null:pv,c:c.desc[i]||'Criterion '+Lt(i),l:lw,g:pv*lw}));else B.push({p:pname(k),v:pv,c:'(no criteria data yet)',l:null,g:null})});
+ const gs=B.filter(r=>r.g!=null).map(r=>r.g),mn=Math.min(...gs),mx=Math.max(...gs),R=[248,105,107],Y=[255,235,132],Gn=[99,190,123],mixc=(a,b,t)=>a.map((x,i)=>Math.round(x+(b[i]-x)*t)),
+ col=x=>{const t=mx>mn?(x-mn)/(mx-mn):.5,c=t<.5?mixc(R,Y,t*2):mixc(Y,Gn,(t-.5)*2);return`style="background:rgb(${c});color:#000"`};
+ const sm=a=>a.reduce((x,y)=>x+y,0);
+ E.innerHTML=`<table class="t gt"><tr><th>Perspectives</th><th>Value</th><th>Criterion</th><th>Local Weights</th><th>Global Weights</th></tr>`+B.map(r=>`<tr><td style="text-align:left">${esc(r.p)}</td><td>${r.v==null?'':tr(r.v)}</td><td>${esc(r.c)}</td><td>${r.l==null?'':tr(r.l)}</td><td ${r.g==null?'':col(r.g)}>${r.g==null?'':f2(r.g)}</td></tr>`).join('')+
+ `<tr class="tot"><td style="text-align:left">Total</td><td>${tr(sm(pm))}</td><td></td><td>${tr(sm(B.filter(r=>r.l!=null).map(r=>r.l)))}</td><td>${tr(sm(gs))}</td></tr></table>`}
+function dia(){const E=$('dia');if(!P.rows.length){E.innerHTML='<small>The chart appears after perspective data is added.</small>';return}
+ const mean=g=>[...Array(g.n)].map((_,k)=>g.rows.reduce((s,r)=>s+r.avg[k],0)/g.rows.length),
+ chip=(a,i)=>{const r=a.map(x=>+x.toFixed(2)),mx=Math.max(...r),mn=Math.min(...r),c=mx==mn?'':r[i]==mx?'hi':r[i]==mn?'lo':'';return`<div class="chip ${c}">${r[i].toFixed(2).replace(/^0/,'')}</div>`},pm=mean(P);
+ let h=`<div class="mis">${esc($('mt').value||'Mission')}</div><div class="dcols">`;
+ pm.forEach((_,k)=>{h+=`<div class="dc">${chip(pm,k)}<div class="per">${esc(pname(k))}</div>`;const c=C[k];
+  if(c&&c.rows.length){const cm=mean(c);cm.forEach((_,i)=>{h+=`${chip(cm,i)}<div class="cri">${esc(c.desc[i]||'Criterion '+Lt(i))}</div>`})}else h+='<small>(no criteria data yet)</small>';h+='</div>'});
+ E.innerHTML=h+'</div>'}
+$('mt').oninput=dia;build();
+</script></body></html>
